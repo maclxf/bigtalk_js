@@ -1,0 +1,5 @@
+{
+    "require": {
+        "makeusabrew/bootbox": "v4.x-dev"
+    }
+}

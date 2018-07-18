@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>可点击翻转的个人信息卡片</title>
+<link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css'>
+<style type="text/css">
+    * {
+      box-sizing: border-box;
+      transition: .5s ease-in-out;
+    }
+
+    html, body {
+      background-color: #220200;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Microsoft YaHei','Lantinghei SC','Open Sans',Arial,'Hiragino Sans GB','STHeiti','WenQuanYi Micro Hei','SimSun',sans-serif;
+    }
+    html h1, body h1 {
+      font-size: 25px;
+      font-weight: 200;
+      color: white;
+      line-height: 30px;
+      margin-bottom: 10px;
+    }
+    html h2, body h2 {
+      font-size: 15px;
+      color: #6b0500;
+    }
+
+    #wrapper {
+      opacity: 0;
+      display: table;
+      height: 100%;
+      width: 100%;
+    }
+    #wrapper.loaded {
+      opacity: 1;
+      transition: 2.5s ease-in-out;
+    }
+    #wrapper #content {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    #card {
+      position: relative;
+      z-index: 1;
+      perspective: 600px;
+    }
+    #card #front, #card #back {
+      position: absolute;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+    #card #front {
+      transform: rotateY(0deg);
+      overflow: hidden;
+      z-index: 1;
+    }
+    #card #back {
+      transform: rotateY(180deg);
+      display: table;
+      z-index: 2;
+    }
+
+    #card.flip #front {
+      transform: rotateY(180deg);
+    }
+    #card.flip #back {
+      transform: rotateY(360deg);
+    }
+
+    #background {
+      position: fixed;
+      background-color: black;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+    #background #background-image {
+      height: calc(100% + 60px);
+      width: calc(100% + 60px);
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      -webkit-filter: blur(10px);
+      background-image: url(../images/bg.jpg);
+      background-size: cover;
+    }
+
+    @keyframes arrowWiggle {
+      0% {
+        right: 50px;
+      }
+      50% {
+        right: 35px;
+      }
+      100% {
+        right: 50px;
+      }
+    }
+</style>
+
+</head>
+
+<body>
+<div id="wrapper">
+  <div id="content">
+    <div id="card">
+      <div id="front">
+        <div id="arrow"><i class="fa fa-arrow-left"></i></div>
+        <div id="top-pic"></div>
+        <div id="avatar"></div>
+        <div id="info-box">
+          <div class="info">
+            <h1>Richer</h1>
+            <h2>Digital Creative</h2>
+          </div>
+        </div>
+        <div id="social-bar">
+          <a href="http://www.sucaihuo.com" target="_blank">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="http://www.sucaihuo.com" target="_blank">
+          <i class="fa fa-twitter"></i>
+          </a>
+          <a href="http://www.sucaihuo.com" target="_blank">
+          <i class="fa fa-dribbble"></i>
+          </a>
+          <a href="http://www.sucaihuo.com">
+          <i class="fa fa-codepen"></i>
+          </a>
+
+          <a href="javascript:void" class="more-info">
+            <i class="fa fa-user"></i>
+          </a>
+        </div>
+      </div>
+
+      <div id="back">
+        <div class="back-info">
+          <p>My name is Jesse Couch, and I am an award winning, intensely creative, coffee-fueled front-end web designer and developer. My style and approach are very straight-forward — I obsess about keeping things as simple as humanly possible. That's it. If you like bells and whistles for the sake of bells and whistles, look elsewhere - but if you want to remain laser-focused on the goals for your new website, it's time time to talk.</p>
+        </div>
+        <div id="social-bar">
+          <a href="http://www.sucaihuo.com" target="_blank">
+            <i class="fa fa-facebook"></i>
+          </a>
+          <a href="http://www.sucaihuo.com" target="_blank">
+          <i class="fa fa-twitter"></i>
+          </a>
+          <a href="http://www.sucaihuo.com" target="_blank">
+          <i class="fa fa-dribbble"></i>
+          </a>
+          <a href="http://www.sucaihuo.com">
+          <i class="fa fa-codepen"></i>
+          </a>
+          <a href="#" class="more-info">
+            <i class="fa fa-undo"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div id="background">
+      <div id="background-image"></div>
+    </div>
+  </div>
+</div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<script type="text/javascript">
+    $(window).load(function(){
+      $('#wrapper').addClass('loaded');
+    })
+
+    $('.more-info').click(function(e){
+        e.preventDefault();
+        $("#card").toggleClass('flip');
+        $('#arrow').remove();
+    });
+
+    $('#background').click(function(){
+        $('#card').removeClass('flip');
+    })
+</script>
+</body>
+</html>
